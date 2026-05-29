@@ -1,0 +1,57 @@
+/* Shared design tokens, fonts, reset — used by every route */
+
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap');
+
+:root {
+  --bg:           #ffffff;
+  --bg-soft:      #faf9f5;
+  --bg-sunken:    #f3f2ec;
+  --ink:          #0a0a09;
+  --ink-soft:     #2a2a26;
+  --muted:        #7a7975;
+  --faint:        #b5b3ad;
+  --whisper:      #d8d6d0;
+  --rule:         #ececea;
+  --rule-strong:  #d8d6d0;
+
+  --a-iris:   oklch(0.55 0.075 285);
+  --a-forge:  oklch(0.55 0.075 35);
+  --a-atlas:  oklch(0.55 0.075 200);
+  --a-loop:   oklch(0.55 0.075 95);
+  --a-beam:   oklch(0.55 0.075 340);
+
+  --max:      1200px;
+  --gutter:   24px;
+  --radius-sm: 4px;
+  --radius:    6px;
+  --radius-lg: 10px;
+  --t-fast: 120ms cubic-bezier(.3,.7,.4,1);
+  --t-med:  220ms cubic-bezier(.3,.7,.4,1);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Geist', -apple-system, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  font-feature-settings: 'ss01', 'cv11';
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  text-wrap: pretty;
+}
+.mono { font-family: 'Geist Mono', ui-monospace, monospace; font-feature-settings: 'tnum', 'zero'; }
+a { color: inherit; text-decoration: none; }
+
+@keyframes pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.35 } }
+@keyframes live  { 0%, 100% { opacity: 1 } 50% { opacity: 0.35 } }
+@keyframes blink { 50% { opacity: 0 } }
+@keyframes shimmer { 0% { background-position: 100% 0 } 100% { background-position: -100% 0 } }
+@keyframes sweep {
+  0%   { opacity: 0; transform: translateX(-30%); }
+  30%  { opacity: 1; }
+  100% { opacity: 0; transform: translateX(30%); }
+}

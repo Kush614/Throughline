@@ -1,0 +1,53 @@
+#!/usr/bin/env node
+// nz — entry shim.
+//
+// Resolution order:
+//   1. If cli/dist/index.js exists, run the built artifact (fast path).
+//   2. Otherwise, fall back to running src/index.ts via tsx (dev path).
+//
+// We set NZ_RUN=1 so the dispatcher knows to auto-run main(), since
+// `await import(...)` makes process.argv[1] point at *this* bin file, not
+// at the dispatcher module.
+//
+// POSIX: this file must be executable (`chmod +x bin/nz`). On Windows, the
+// adjacent nz.cmd wraps it via `node`.
+
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
+
+const here = dirname(fileURLToPath(import.meta.url));
+const dist = resolve(here, '..', 'dist', 'index.js');
+const src = resolve(here, '..', 'src', 'index.ts');
+
+process.env.NZ_RUN = '1';
+
+if (existsSync(dist)) {
+  await import(pathToFileUrlString(dist));
+} else if (existsSync(src)) {
+  // Dev fallback: spawn node with the tsx loader.
+  const { spawnSync } = await import('node:child_process');
+  const r = spawnSync(
+    process.execPath,
+    ['--import', 'tsx/esm', src, ...process.argv.slice(2)],
+    { stdio: 'inherit', env: process.env },
+  );
+  process.exit(r.status ?? 1);
+} else {
+  process.stderr.write(
+    'nz: neither dist/index.js nor src/index.ts found near bin/nz.\n' +
+      'Did you forget to `pnpm install` or `pnpm run build`?\n',
+  );
+  process.exit(1);
+}
+
+function pathToFileUrlString(p) {
+  // Minimal inline conversion to avoid pulling node:url just for one helper.
+  // Node's import() accepts file:// URLs and absolute paths on POSIX, but
+  // requires file:// URLs on Windows for absolute paths with drive letters.
+  const abs = resolve(p);
+  if (process.platform === 'win32') {
+    return 'file:///' + abs.replace(/\\/g, '/');
+  }
+  return 'file://' + abs;
+}

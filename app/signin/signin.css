@@ -1,0 +1,344 @@
+/* Sign In — scoped under .signin-root */
+
+.signin-root { min-height: 100vh; }
+
+.signin-root .auth {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+@media (max-width: 960px) {
+  .signin-root .auth { grid-template-columns: 1fr; }
+  .signin-root .auth .preview { display: none; }
+}
+
+.signin-root .preview {
+  background: var(--bg-soft);
+  border-right: 1px solid var(--rule);
+  padding: 56px 56px 40px;
+  display: flex; flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.signin-root .preview .brand {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 60px;
+}
+.signin-root .preview .brand .logo {
+  width: 24px; height: 24px; border-radius: 5.5px;
+  background: var(--ink); position: relative;
+}
+.signin-root .preview .brand .logo::before,
+.signin-root .preview .brand .logo::after { content: ""; position: absolute; background: var(--bg); }
+.signin-root .preview .brand .logo::before { top: 5.5px; left: 5.5px; width: 13px; height: 1.6px; }
+.signin-root .preview .brand .logo::after  { top: 5.5px; left: 5.5px; width: 1.6px; height: 13px; }
+.signin-root .preview .brand .name { font-weight: 600; letter-spacing: -0.01em; font-size: 15.5px; }
+.signin-root .preview .brand .name .sm { font-weight: 400; color: var(--muted); margin-left: 4px; }
+
+.signin-root .preview .eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.signin-root .preview h1 {
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 16px;
+  max-width: 420px;
+}
+.signin-root .preview h1 .muted { color: var(--muted); font-weight: 400; }
+.signin-root .preview .lede {
+  font-size: 15px; color: var(--ink-soft);
+  max-width: 420px; line-height: 1.55;
+  margin: 0 0 36px;
+}
+.signin-root .preview .lede b { color: var(--ink); font-weight: 500; }
+
+.signin-root .preview-card {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.6) inset,
+    0 20px 50px -16px rgba(0,0,0,0.14);
+  overflow: hidden;
+  max-width: 480px;
+}
+.signin-root .preview-card .card-hd {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg-soft);
+}
+.signin-root .preview-card .card-hd .d {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--rule-strong);
+}
+.signin-root .preview-card .card-hd .tab {
+  margin-left: 4px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; color: var(--muted);
+}
+.signin-root .preview-card .card-hd .tab .live {
+  display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+  background: oklch(0.62 0.12 150);
+  margin-right: 5px; vertical-align: 1px;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+.signin-root .preview-card .body { padding: 18px 20px; }
+.signin-root .preview-card .doc-meta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px; color: var(--muted);
+  margin-bottom: 8px;
+}
+.signin-root .preview-card h3 {
+  font-size: 18px; font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 0 0 14px;
+}
+
+.signin-root .pv-evt {
+  display: flex; gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.signin-root .pv-evt:last-child { border-bottom: 0; }
+.signin-root .pv-evt .av {
+  width: 22px; height: 22px; border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 600;
+  background: var(--bg-sunken);
+  color: var(--ink-soft);
+}
+.signin-root .pv-evt .av[data-agent="1"] {
+  background: var(--bg);
+  border: 1.2px dashed var(--agent-color);
+  color: var(--agent-color);
+}
+.signin-root .pv-evt .body { flex: 1; min-width: 0; }
+.signin-root .pv-evt .line { font-size: 13px; color: var(--ink-soft); line-height: 1.45; }
+.signin-root .pv-evt .line b { color: var(--ink); font-weight: 500; }
+.signin-root .pv-evt .line code {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  background: var(--bg-sunken);
+  padding: 1px 4px; border-radius: 3px;
+  color: var(--ink-soft);
+}
+.signin-root .pv-evt .when {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px; color: var(--muted);
+  margin-top: 2px;
+}
+
+.signin-root .preview .foot {
+  margin-top: auto;
+  padding-top: 32px;
+  display: flex; gap: 22px;
+  flex-wrap: wrap;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+.signin-root .preview .foot .item b { color: var(--ink-soft); font-weight: 500; }
+
+.signin-root .form-side {
+  display: flex; flex-direction: column;
+  padding: 32px 40px;
+  position: relative;
+}
+.signin-root .form-top {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 13px; color: var(--muted);
+}
+.signin-root .form-top .alt { color: var(--ink-soft); }
+.signin-root .form-top .alt a {
+  margin-left: 6px; color: var(--ink); font-weight: 500;
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 1px;
+}
+.signin-root .form-top .alt a:hover { border-bottom-color: var(--ink); }
+
+.signin-root .form-wrap {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.signin-root .form-card {
+  width: 100%;
+  max-width: 380px;
+}
+.signin-root .form-card .mark-mobile {
+  display: none;
+  align-items: center; gap: 10px;
+  margin-bottom: 28px;
+}
+@media (max-width: 960px) {
+  .signin-root .form-card .mark-mobile { display: flex; }
+}
+.signin-root .form-card .mark-mobile .logo {
+  width: 22px; height: 22px; border-radius: 5px;
+  background: var(--ink); position: relative;
+}
+.signin-root .form-card .mark-mobile .logo::before,
+.signin-root .form-card .mark-mobile .logo::after { content: ""; position: absolute; background: var(--bg); }
+.signin-root .form-card .mark-mobile .logo::before { top: 5px; left: 5px; width: 12px; height: 1.5px; }
+.signin-root .form-card .mark-mobile .logo::after  { top: 5px; left: 5px; width: 1.5px; height: 12px; }
+.signin-root .form-card .mark-mobile .name { font-weight: 600; font-size: 14.5px; }
+
+.signin-root .form-card h2 {
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 8px;
+}
+.signin-root .form-card .sub {
+  font-size: 14px; color: var(--muted);
+  margin: 0 0 28px;
+}
+
+.signin-root .providers {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.signin-root .providers.three { grid-template-columns: repeat(3, 1fr); }
+.signin-root .provider-btn {
+  appearance: none; border: 1px solid var(--rule);
+  background: var(--bg);
+  height: 42px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink);
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px;
+  cursor: default;
+  font-family: inherit;
+  transition: all 140ms;
+}
+.signin-root .provider-btn:hover {
+  background: var(--bg-soft);
+  border-color: var(--rule-strong);
+}
+.signin-root .provider-btn svg { flex-shrink: 0; }
+
+.signin-root .divider {
+  display: flex; align-items: center; gap: 10px;
+  margin: 18px 0 18px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px;
+  color: var(--faint);
+  text-transform: uppercase; letter-spacing: 0.12em;
+}
+.signin-root .divider::before,
+.signin-root .divider::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+
+.signin-root .field { margin-bottom: 12px; }
+.signin-root .field label {
+  display: flex; justify-content: space-between;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.signin-root .field label .hint { font-weight: 400; color: var(--muted); font-size: 12px; }
+.signin-root .field label .hint a {
+  color: var(--ink); font-weight: 500;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.signin-root .field input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--rule-strong);
+  border-radius: 8px;
+  background: var(--bg);
+  font: inherit;
+  font-size: 14.5px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 140ms, box-shadow 140ms;
+}
+.signin-root .field input::placeholder { color: var(--muted); }
+.signin-root .field input:focus {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(10,10,9,0.08);
+}
+
+.signin-root .terms-row {
+  margin-top: 14px;
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 12.5px; color: var(--muted);
+  line-height: 1.5;
+}
+.signin-root .terms-row .cb {
+  width: 16px; height: 16px;
+  border: 1.2px solid var(--rule-strong);
+  border-radius: 4px;
+  flex-shrink: 0; margin-top: 1px;
+  background: var(--bg);
+  cursor: default;
+  transition: all 140ms;
+}
+.signin-root .terms-row .cb[data-on="1"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  position: relative;
+}
+.signin-root .terms-row .cb[data-on="1"]::after {
+  content: ""; position: absolute;
+  left: 3.5px; top: 3.5px;
+  width: 7.5px; height: 4px;
+  border-left: 1.4px solid var(--bg);
+  border-bottom: 1.4px solid var(--bg);
+  transform: rotate(-45deg);
+}
+
+.signin-root .submit-btn {
+  width: 100%;
+  height: 46px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--bg);
+  border: 0;
+  font: inherit;
+  font-weight: 500;
+  font-size: 14.5px;
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 8px;
+  margin-top: 18px;
+  cursor: default;
+  transition: all 160ms;
+}
+.signin-root .submit-btn:hover { background: #1f1f1c; }
+.signin-root .submit-btn .arr { transition: transform 200ms; }
+.signin-root .submit-btn:hover .arr { transform: translateX(3px); }
+
+.signin-root .form-foot {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.signin-root .form-foot a {
+  color: var(--ink); font-weight: 500;
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.signin-root .form-bottom {
+  display: flex; justify-content: space-between;
+  margin-top: auto;
+  padding-top: 16px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px;
+  color: var(--muted);
+}
+.signin-root .form-bottom a:hover { color: var(--ink); }
+.signin-root .form-bottom .right { display: flex; gap: 14px; }

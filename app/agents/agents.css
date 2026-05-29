@@ -1,0 +1,387 @@
+/* Agents management — scoped under .agents-root */
+
+.agents-root {
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: 'Geist', -apple-system, system-ui, sans-serif;
+}
+
+.agents-root .nav {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(255,255,255,0.9);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid var(--rule);
+}
+.agents-root .nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 28px; height: 64px;
+  display: flex; align-items: center; gap: 28px;
+}
+.agents-root .brand { display: flex; align-items: center; gap: 10px; }
+.agents-root .brand .logo {
+  width: 22px; height: 22px; border-radius: 5px;
+  background: var(--ink); position: relative;
+}
+.agents-root .brand .logo::before, .agents-root .brand .logo::after { content: ""; position: absolute; background: var(--bg); }
+.agents-root .brand .logo::before { top: 5px; left: 5px; width: 12px; height: 1.5px; }
+.agents-root .brand .logo::after  { top: 5px; left: 5px; width: 1.5px; height: 12px; }
+.agents-root .brand .name { font-weight: 600; letter-spacing: -0.01em; font-size: 15px; }
+.agents-root .brand .name .sm { font-weight: 400; color: var(--muted); margin-left: 4px; }
+.agents-root .nav-crumb { display: flex; align-items: center; gap: 6px; font-size: 13.5px; color: var(--muted); }
+.agents-root .nav-crumb .cur { color: var(--ink); font-weight: 500; }
+.agents-root .nav-crumb .sep { color: var(--faint); }
+.agents-root .nav-right { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.agents-root .nav-right .txt {
+  padding: 6px 10px; border-radius: 6px;
+  color: var(--ink-soft); font-weight: 500;
+}
+.agents-root .nav-right .txt:hover { background: var(--bg-sunken); color: var(--ink); }
+
+.agents-root .hero {
+  max-width: 1080px; margin: 0 auto;
+  padding: 56px 28px 24px;
+}
+.agents-root .eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--muted); margin-bottom: 14px;
+}
+.agents-root .hero h1 {
+  font-size: clamp(34px, 4.5vw, 52px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin: 0 0 16px;
+}
+.agents-root .hero h1 .muted { color: var(--muted); font-weight: 400; }
+.agents-root .stat-row {
+  margin-top: 18px;
+  display: flex; gap: 24px; flex-wrap: wrap;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px; color: var(--muted);
+}
+.agents-root .stat-row .item b { color: var(--ink-soft); font-weight: 500; }
+
+.agents-root .list-wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding: 24px 28px 80px;
+  overflow-x: auto;
+}
+
+.agents-root .workspace-panels {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 8px 28px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+}
+.agents-root .panel {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--bg);
+  min-width: 0;
+}
+.agents-root .panel-head {
+  padding: 16px 16px 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.agents-root .panel-kicker {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.agents-root .panel h2 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.25;
+  font-weight: 600;
+  color: var(--ink);
+}
+.agents-root .panel-count {
+  min-width: 28px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  background: var(--bg-soft);
+}
+.agents-root .history-list,
+.agents-root .message-list {
+  max-height: 360px;
+  overflow: auto;
+}
+.agents-root .history-row,
+.agents-root .message-row {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.agents-root .history-row:last-child,
+.agents-root .message-row:last-child {
+  border-bottom: 0;
+}
+.agents-root .history-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+.agents-root .history-name {
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+.agents-root .history-meta,
+.agents-root .history-side time,
+.agents-root .message-meta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px;
+  color: var(--muted);
+}
+.agents-root .history-meta {
+  margin-top: 3px;
+}
+.agents-root .history-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  white-space: nowrap;
+}
+.agents-root .flow-line {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px;
+  color: var(--muted);
+}
+.agents-root .flow-line .arrow {
+  color: var(--faint);
+}
+.agents-root .flow-line .kind {
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--bg-sunken);
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.agents-root .message-summary {
+  margin-top: 7px;
+  color: var(--ink);
+  font-size: 13.5px;
+  line-height: 1.4;
+}
+.agents-root .message-context {
+  margin-top: 6px;
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.agents-root .message-meta {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.agents-root .panel-empty {
+  padding: 22px 16px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.agents-root .panel-empty code {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  background: var(--bg-sunken);
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+
+.agents-root .empty {
+  border: 1px dashed var(--rule-strong);
+  border-radius: 14px;
+  padding: 64px 32px;
+  text-align: center;
+}
+.agents-root .empty h3 {
+  font-size: 20px; font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 0 0 8px;
+}
+.agents-root .empty p { font-size: 14px; color: var(--muted); margin: 0; }
+.agents-root .empty .cta {
+  color: var(--ink); font-weight: 500;
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 1px;
+  margin-left: 4px;
+}
+
+.agents-root .agent-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg);
+  font-size: 13.5px;
+}
+.agents-root .agent-table thead th {
+  background: var(--bg-soft);
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 600;
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--rule);
+}
+.agents-root .agent-table tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.agents-root .agent-table tbody tr:last-child td { border-bottom: 0; }
+.agents-root .agent-table tbody tr[data-status="revoked"] { opacity: 0.55; }
+
+.agents-root .agent-table .name { font-weight: 500; color: var(--ink); }
+.agents-root .agent-table .from { color: var(--ink-soft); }
+.agents-root .agent-table .task {
+  max-width: 240px;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+.agents-root .agent-table .sub {
+  margin-top: 2px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px;
+  color: var(--muted);
+}
+.agents-root .agent-table .key {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  background: var(--bg-sunken);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--ink-soft);
+}
+.agents-root .agent-table .owner {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.agents-root .agent-table .ts {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.agents-root .agent-table .actions { text-align: right; white-space: nowrap; }
+
+.agents-root .pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.agents-root .pill.status-pending {
+  background: var(--bg-sunken);
+  color: var(--muted);
+}
+.agents-root .pill.status-connected {
+  background: oklch(0.95 0.05 150);
+  color: oklch(0.4 0.12 150);
+}
+.agents-root .pill.status-connected .dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: oklch(0.55 0.13 150);
+  animation: agents-pulse 1.6s ease-in-out infinite;
+}
+.agents-root .pill.status-revoked {
+  background: oklch(0.94 0.04 25);
+  color: oklch(0.42 0.12 25);
+}
+@keyframes agents-pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.4 } }
+
+.agents-root .rev {
+  appearance: none; border: 1px solid var(--rule-strong);
+  background: var(--bg);
+  height: 28px; padding: 0 10px;
+  border-radius: 6px;
+  font: inherit; font-family: inherit;
+  font-size: 12px; color: var(--ink-soft);
+  cursor: default;
+}
+.agents-root .rev:hover { background: var(--bg-soft); color: var(--ink); }
+.agents-root .rev.confirm-yes {
+  background: oklch(0.5 0.18 25);
+  color: var(--bg);
+  border-color: oklch(0.5 0.18 25);
+}
+.agents-root .rev.confirm-yes:hover { background: oklch(0.45 0.2 25); }
+.agents-root .rev.confirm-no { margin-left: 4px; }
+.agents-root .confirm { display: inline-flex; gap: 0; }
+
+@media (max-width: 860px) {
+  .agents-root .nav-inner {
+    padding: 0 16px;
+    gap: 12px;
+  }
+  .agents-root .nav-crumb {
+    display: none;
+  }
+  .agents-root .brand .name .sm {
+    display: none;
+  }
+  .agents-root .nav-right {
+    gap: 2px;
+    font-size: 12px;
+  }
+  .agents-root .nav-right .txt {
+    padding: 6px;
+  }
+  .agents-root .hero,
+  .agents-root .workspace-panels,
+  .agents-root .list-wrap {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+  .agents-root .workspace-panels {
+    grid-template-columns: 1fr;
+  }
+  .agents-root .agent-table {
+    min-width: 980px;
+  }
+  .agents-root .history-row {
+    flex-direction: column;
+  }
+  .agents-root .history-side {
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,283 @@
+/* /[org]/brain — minimal-doc-style brain view, scoped under .brain-doc-root */
+
+.brain-doc-root {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Geist', -apple-system, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  font-feature-settings: 'ss01';
+  min-height: 100vh;
+}
+
+.brain-doc-root .top {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 22px 24px 0;
+  display: flex; align-items: center; gap: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.brain-doc-root .top .logo {
+  width: 18px; height: 18px; border-radius: 4px;
+  background: var(--ink); flex-shrink: 0; position: relative;
+}
+.brain-doc-root .top .logo::before, .brain-doc-root .top .logo::after {
+  content: ""; position: absolute; background: var(--bg);
+}
+.brain-doc-root .top .logo::before { top: 4px; left: 4px; width: 10px; height: 1.2px; }
+.brain-doc-root .top .logo::after  { top: 4px; left: 4px; width: 1.2px; height: 10px; }
+.brain-doc-root .top .brand {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--ink-soft); font-weight: 500;
+}
+.brain-doc-root .top .brand .crumb-name { font-weight: 600; }
+.brain-doc-root .top .crumb { color: var(--ink-soft); }
+.brain-doc-root .top .crumb.cur { color: var(--ink); }
+.brain-doc-root .top .sep { color: var(--faint); }
+.brain-doc-root .top .domain {
+  margin-left: 8px;
+  font-size: 11px;
+  background: var(--bg-sunken);
+  color: var(--muted);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.brain-doc-root .top .save {
+  margin-left: auto;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+.brain-doc-root .top .save .dot {
+  display: inline-block;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: oklch(0.62 0.12 150);
+  margin-right: 5px;
+  vertical-align: 1px;
+  animation: brain-pulse 1.6s ease-in-out infinite;
+}
+@keyframes brain-pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.4 } }
+
+.brain-doc-root .doc {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 64px 24px 160px;
+}
+.brain-doc-root .doc .meta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.brain-doc-root .doc h1 {
+  font-size: 44px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin: 0 0 12px;
+}
+.brain-doc-root .doc .sub {
+  font-size: 17px;
+  color: var(--muted);
+  margin: 0 0 36px;
+}
+.brain-doc-root .doc h2 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin: 38px 0 14px;
+}
+.brain-doc-root .doc p { color: var(--ink-soft); margin: 0 0 16px; }
+.brain-doc-root .doc p.ph { color: var(--faint); font-style: italic; }
+.brain-doc-root .doc p.ph .link {
+  color: var(--ink); font-style: normal;
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 1px;
+}
+
+.brain-doc-root .people {
+  display: flex; flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 4px 0 16px;
+}
+.brain-doc-root .person {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg);
+}
+.brain-doc-root .person:last-child { border-bottom: 0; }
+.brain-doc-root .person .av {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--bg-sunken);
+  color: var(--ink-soft);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600;
+  flex-shrink: 0;
+}
+.brain-doc-root .person .nm { font-size: 14.5px; color: var(--ink); font-weight: 500; }
+.brain-doc-root .person .rl {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11.5px; color: var(--muted);
+}
+
+.brain-doc-root .agent-block-list {
+  display: flex; flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 4px 0 16px;
+}
+.brain-doc-root .agent-line {
+  display: grid;
+  grid-template-columns: 36px auto 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--bg);
+}
+.brain-doc-root .agent-line:last-child { border-bottom: 0; }
+.brain-doc-root .agent-line .av {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 1.3px dashed var(--a-iris);
+  background: var(--bg);
+  color: var(--a-iris);
+  font-size: 11px; font-weight: 600;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.brain-doc-root .agent-line .nm { font-size: 14.5px; color: var(--ink); font-weight: 500; }
+.brain-doc-root .agent-line .role {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11.5px; color: var(--muted);
+}
+
+.brain-doc-root .memories { display: flex; flex-direction: column; gap: 12px; margin: 4px 0 16px; }
+.brain-doc-root .mem {
+  background: var(--bg-soft);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 14px 16px;
+  position: relative;
+}
+.brain-doc-root .mem .tag {
+  position: absolute;
+  top: -7px; left: 14px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  background: var(--bg);
+  color: var(--muted);
+  padding: 0 6px;
+}
+.brain-doc-root .mem .q { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin: 0 0 6px; }
+.brain-doc-root .mem .meta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px; color: var(--muted);
+}
+
+.brain-doc-root .connections { display: flex; flex-direction: column; gap: 8px; margin: 4px 0 16px; }
+.brain-doc-root .conn {
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: var(--bg);
+}
+.brain-doc-root .conn.status-connected { border-color: oklch(0.55 0.12 150); }
+.brain-doc-root .conn.status-revoked { opacity: 0.55; }
+.brain-doc-root .conn .row {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 14px;
+}
+.brain-doc-root .conn .nm { font-weight: 500; color: var(--ink); }
+.brain-doc-root .conn .status {
+  margin-left: auto;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--bg-sunken);
+  color: var(--muted);
+}
+.brain-doc-root .conn.status-connected .status {
+  background: oklch(0.95 0.05 150);
+  color: oklch(0.4 0.12 150);
+}
+.brain-doc-root .conn .sub {
+  margin-top: 2px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.brain-doc-root .footer-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--bg);
+  border-top: 1px solid var(--rule);
+  display: flex; align-items: center; gap: 16px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.brain-doc-root .footer-bar .grow { flex: 1; }
+.brain-doc-root .footer-bar a {
+  color: var(--ink-soft);
+  font-weight: 500;
+  padding-bottom: 1px;
+  border-bottom: 1px solid var(--rule-strong);
+}
+.brain-doc-root .footer-bar a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+.brain-doc-root .doc-tree {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 4px 0 16px;
+  background: var(--bg);
+}
+.brain-doc-root .doc-tree-row {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 12px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+  transition: background 140ms;
+}
+.brain-doc-root .doc-tree-row:last-child { border-bottom: 0; }
+.brain-doc-root .doc-tree-row:hover { background: var(--bg-soft); }
+.brain-doc-root .doc-tree-glyph {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11.5px;
+  color: var(--muted);
+  align-self: center;
+  padding: 3px 7px;
+  background: var(--bg-sunken);
+  border-radius: 4px;
+  display: inline-block;
+  width: fit-content;
+}
+.brain-doc-root .doc-tree-title {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.brain-doc-root .doc-tree-meta {
+  margin-top: 3px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}

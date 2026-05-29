@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg">#FFFFFFFF</color>
+    <color name="ink">#FF0A0A09</color>
+    <color name="rule_strong">#FFD8D6D0</color>
+</resources>

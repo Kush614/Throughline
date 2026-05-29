@@ -1,0 +1,77 @@
+.org-home-root {
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: 'Geist', -apple-system, system-ui, sans-serif;
+}
+.org-home-root .hero {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 96px 28px;
+}
+.org-home-root .brand {
+  display: inline-flex; align-items: center; gap: 10px;
+  margin-bottom: 48px;
+}
+.org-home-root .brand .logo {
+  width: 22px; height: 22px; border-radius: 5px;
+  background: var(--ink); position: relative;
+}
+.org-home-root .brand .logo::before, .org-home-root .brand .logo::after {
+  content: ""; position: absolute; background: var(--bg);
+}
+.org-home-root .brand .logo::before { top: 5px; left: 5px; width: 12px; height: 1.5px; }
+.org-home-root .brand .logo::after  { top: 5px; left: 5px; width: 1.5px; height: 12px; }
+.org-home-root .brand .name { font-weight: 600; letter-spacing: -0.01em; font-size: 15px; color: var(--ink); }
+.org-home-root .brand .sm { font-weight: 400; color: var(--muted); margin-left: 4px; }
+
+.org-home-root .eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11.5px;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.org-home-root h1 {
+  font-size: clamp(56px, 9vw, 120px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  margin: 0 0 18px;
+}
+.org-home-root .tag {
+  font-size: 20px;
+  color: var(--muted);
+  max-width: 640px;
+  margin: 0 0 28px;
+}
+
+.org-home-root .stat-row {
+  display: flex; gap: 24px; flex-wrap: wrap;
+  font-family: 'Geist Mono', monospace;
+  font-size: 13px; color: var(--muted);
+  margin-bottom: 36px;
+}
+.org-home-root .stat-row b { color: var(--ink-soft); font-weight: 500; }
+
+.org-home-root .actions {
+  display: flex; gap: 10px; flex-wrap: wrap;
+}
+.org-home-root .btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 44px;
+  padding: 0 18px;
+  border-radius: 8px;
+  font-size: 14.5px;
+  font-weight: 500;
+  font-family: inherit;
+  transition: all 160ms;
+  cursor: default;
+}
+.org-home-root .btn.primary { background: var(--ink); color: var(--bg); }
+.org-home-root .btn.primary:hover { background: #1f1f1c; }
+.org-home-root .btn.ghost {
+  color: var(--ink-soft);
+  background: var(--bg);
+  border: 1px solid var(--rule-strong);
+}
+.org-home-root .btn.ghost:hover { background: var(--bg-sunken); color: var(--ink); }

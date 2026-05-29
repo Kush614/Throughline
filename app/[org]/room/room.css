@@ -1,0 +1,54 @@
+/* The Room — minimalist, non-technical front door. One screen: ask + who's
+   here + what the room decided. Everything else lives in the builder view. */
+
+.room-root { min-height: 100vh; background: var(--bg); font-family: 'Geist', -apple-system, system-ui, sans-serif; }
+
+.room-bar {
+  display: flex; align-items: center; gap: 14px;
+  max-width: 720px; margin: 0 auto; padding: 22px 24px;
+}
+.room-brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; letter-spacing: -0.01em; }
+.room-logo { width: 18px; height: 18px; border-radius: 5px; background: var(--accent); }
+.room-org { color: var(--muted); font-size: 13px; }
+.room-actions { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+.room-devlink { color: var(--faint); font-size: 12.5px; }
+.room-devlink:hover { color: var(--ink); }
+.room-devlink.ship { color: var(--accent); font-weight: 500; }
+.room-devlink.ship:hover { color: #ff7fe3; }
+
+.room-main { max-width: 720px; margin: 0 auto; padding: 36px 24px 120px; }
+.room-eyebrow {
+  font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+}
+.room-title { font-size: clamp(36px, 6vw, 56px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.02; margin: 0 0 14px; }
+.room-sub { font-size: 17px; color: var(--muted); max-width: 560px; margin: 0 0 30px; }
+
+.room-banner {
+  background: var(--bg-soft); border: 1px solid var(--rule-strong);
+  border-radius: 10px; padding: 13px 15px; font-size: 14px; color: var(--ink-soft); margin-bottom: 22px;
+}
+.room-banner code { font-family: 'Geist Mono', monospace; font-size: 12.5px; color: var(--accent); }
+
+.room-presence {
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  margin: 18px 0 48px; font-size: 13.5px; color: var(--muted);
+}
+.room-presence .label { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+.room-agent { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-soft); }
+.room-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; }
+
+.room-section { margin-top: 8px; }
+.room-section-h {
+  font-family: 'Geist Mono', monospace; font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted); margin: 0 0 14px;
+}
+.room-decisions { list-style: none; margin: 0; padding: 0; }
+.room-dec { display: flex; gap: 12px; padding: 13px 0; border-top: 1px solid var(--rule); }
+.room-dec:first-child { border-top: none; }
+.room-dec .room-dot { margin-top: 7px; flex-shrink: 0; }
+.room-dec.superseded .room-dot { background: var(--faint); }
+.room-dec-text { font-size: 15.5px; line-height: 1.5; color: var(--ink); }
+.room-dec.superseded .room-dec-text { text-decoration: line-through; color: var(--faint); }
+.room-dec-meta { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--faint); margin-top: 3px; }
+.room-muted { color: var(--muted); font-size: 14px; }

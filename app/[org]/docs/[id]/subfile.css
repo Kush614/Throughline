@@ -1,0 +1,249 @@
+.subfile-root {
+  min-height: 100vh;
+  background: var(--bg);
+  font-family: 'Geist', -apple-system, system-ui, sans-serif;
+}
+.subfile-root .nav {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(255,255,255,0.92);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  border-bottom: 1px solid var(--rule);
+}
+.subfile-root .nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 28px; height: 64px;
+  display: flex; align-items: center; gap: 28px;
+}
+.subfile-root .brand { display: flex; align-items: center; gap: 10px; }
+.subfile-root .brand .logo {
+  width: 22px; height: 22px; border-radius: 5px;
+  background: var(--ink); position: relative;
+}
+.subfile-root .brand .logo::before, .subfile-root .brand .logo::after { content: ""; position: absolute; background: var(--bg); }
+.subfile-root .brand .logo::before { top: 5px; left: 5px; width: 12px; height: 1.5px; }
+.subfile-root .brand .logo::after  { top: 5px; left: 5px; width: 1.5px; height: 12px; }
+.subfile-root .brand .name { font-weight: 600; letter-spacing: -0.01em; font-size: 15px; }
+.subfile-root .brand .name .sm { font-weight: 400; color: var(--muted); margin-left: 4px; }
+.subfile-root .nav-crumb { display: flex; align-items: center; gap: 6px; font-size: 13.5px; color: var(--muted); }
+.subfile-root .nav-crumb .cur { color: var(--ink); font-weight: 500; }
+.subfile-root .nav-crumb .sep { color: var(--faint); }
+.subfile-root .nav-right { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.subfile-root .nav-right .txt { padding: 6px 10px; border-radius: 6px; color: var(--ink-soft); font-weight: 500; }
+.subfile-root .nav-right .txt:hover { background: var(--bg-sunken); color: var(--ink); }
+
+.subfile-root .subfile-wrap {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 56px 28px 96px;
+}
+
+.subfile-root .meta-row {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11.5px; color: var(--muted);
+  margin-bottom: 14px;
+}
+.subfile-root .meta-row .cmd-pill {
+  background: var(--ink); color: var(--bg);
+  padding: 2px 8px; border-radius: 4px;
+  font-weight: 500;
+}
+.subfile-root .meta-row .sep { color: var(--faint); }
+.subfile-root .meta-row .ts, .subfile-root .meta-row .by, .subfile-root .meta-row .prov { color: var(--ink-soft); }
+.subfile-root .meta-row .mentions { color: var(--a-iris); }
+
+.subfile-root .subfile-wrap h1 {
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin: 0 0 24px;
+}
+
+.subfile-root .status-strip {
+  display: flex; align-items: center; gap: 12px;
+  margin: 4px 0 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+}
+.subfile-root .status-strip .pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--bg-sunken);
+  color: var(--ink-soft);
+}
+.subfile-root .status-strip .pill.status-running, .subfile-root .status-strip .pill.status-pending {
+  background: oklch(0.94 0.05 90);
+  color: oklch(0.4 0.13 60);
+}
+.subfile-root .status-strip .pill.status-running .dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: oklch(0.55 0.13 60);
+  animation: sf-pulse 1.4s ease-in-out infinite;
+}
+.subfile-root .status-strip .pill.status-done {
+  background: oklch(0.95 0.05 150);
+  color: oklch(0.4 0.13 150);
+}
+.subfile-root .status-strip .pill.status-error {
+  background: oklch(0.94 0.06 25);
+  color: oklch(0.42 0.14 25);
+}
+.subfile-root .status-strip .hint {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+@keyframes sf-pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.4 } }
+
+/* Markdown body */
+.subfile-root .md { font-size: 15.5px; line-height: 1.65; color: var(--ink-soft); }
+.subfile-root .md h1 { font-size: 28px; margin: 28px 0 12px; }
+.subfile-root .md h2 { font-size: 20px; margin: 28px 0 10px; color: var(--ink); font-weight: 600; }
+.subfile-root .md h3 { font-size: 17px; margin: 22px 0 8px; color: var(--ink); font-weight: 600; }
+.subfile-root .md p { margin: 0 0 14px; }
+.subfile-root .md strong { color: var(--ink); font-weight: 600; }
+.subfile-root .md code {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12.5px;
+  background: var(--bg-sunken);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--ink-soft);
+}
+.subfile-root .md a {
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 1px;
+}
+.subfile-root .md a:hover { border-bottom-color: var(--ink); }
+.subfile-root .md hr { border: 0; border-top: 1px solid var(--rule); margin: 24px 0; }
+.subfile-root .md blockquote {
+  margin: 0 0 14px;
+  padding: 8px 14px;
+  background: var(--bg-soft);
+  border-left: 2px solid var(--rule-strong);
+  border-radius: 0 6px 6px 0;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+.subfile-root .md blockquote div { margin: 0; }
+.subfile-root .md ul { padding-left: 22px; margin: 6px 0 16px; }
+.subfile-root .md li { margin-bottom: 6px; }
+.subfile-root .md li .cb {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border-radius: 3px;
+  border: 1px solid var(--rule-strong);
+  background: var(--bg);
+  font-size: 9px;
+  line-height: 1;
+  text-align: center;
+  margin-right: 6px;
+  vertical-align: 0;
+  color: var(--bg);
+}
+.subfile-root .md li .cb.on { background: var(--ink); border-color: var(--ink); padding-top: 2px; }
+.subfile-root .md pre {
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  background: var(--ink); color: var(--bg);
+  border-radius: 8px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.55;
+  overflow-x: auto;
+}
+.subfile-root .md table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 0 16px;
+  font-size: 13px;
+}
+.subfile-root .md table th, .subfile-root .md table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+.subfile-root .md table th {
+  background: var(--bg-soft);
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 600;
+}
+.subfile-root .md table tbody tr:last-child td { border-bottom: 0; }
+
+.subfile-root .children { margin-top: 36px; }
+.subfile-root .children h2 {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+.subfile-root .children-list {
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.subfile-root .child-row {
+  display: grid;
+  grid-template-columns: 90px 1fr 80px;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink);
+  font-size: 14px;
+}
+.subfile-root .child-row:last-child { border-bottom: 0; }
+.subfile-root .child-row:hover { background: var(--bg-soft); }
+.subfile-root .child-mark {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  background: var(--bg-sunken);
+  padding: 2px 6px;
+  border-radius: 4px;
+  width: fit-content;
+  align-self: center;
+}
+.subfile-root .child-title { font-weight: 500; align-self: center; }
+.subfile-root .child-meta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  text-align: right;
+  align-self: center;
+}
+
+.subfile-root .footer {
+  display: flex; align-items: center; gap: 16px;
+  margin-top: 48px;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  font-family: 'Geist Mono', monospace;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.subfile-root .footer .grow { flex: 1; }
+.subfile-root .footer a {
+  color: var(--ink-soft); font-weight: 500;
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 1px;
+}
+.subfile-root .footer a:hover { color: var(--ink); border-bottom-color: var(--ink); }

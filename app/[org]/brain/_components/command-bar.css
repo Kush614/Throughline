@@ -1,0 +1,164 @@
+/* CommandBar — drops into /[org]/brain at the top of the doc.
+   Scoped via .cmd-root so it doesn't bleed into surrounding pages. */
+
+.cmd-root {
+  position: relative;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--bg);
+  margin: 4px 0 18px;
+  font-family: 'Geist', -apple-system, system-ui, sans-serif;
+}
+.cmd-bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 14px;
+}
+.cmd-prompt {
+  font-family: 'Geist Mono', monospace;
+  font-size: 18px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+.cmd-input {
+  flex: 1;
+  height: 36px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-family: 'Geist Mono', monospace;
+  font-size: 14px;
+  color: var(--ink);
+}
+.cmd-input::placeholder { color: var(--faint); }
+.cmd-go {
+  appearance: none; border: 0;
+  background: var(--ink); color: var(--bg);
+  font-family: inherit;
+  font-weight: 500; font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: default;
+  flex-shrink: 0;
+}
+.cmd-go:disabled { background: var(--rule-strong); cursor: not-allowed; }
+
+.cmd-suggest {
+  position: absolute;
+  left: 12px; right: 12px; top: 100%;
+  margin-top: 4px;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  box-shadow: 0 20px 40px -16px rgba(0,0,0,0.18), 0 1px 0 rgba(255,255,255,0.6) inset;
+  z-index: 20;
+  overflow: hidden;
+}
+.cmd-suggest-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg-soft);
+  border-bottom: 1px solid var(--rule);
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.cmd-suggest-hint {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  color: var(--faint);
+  text-transform: none;
+  letter-spacing: 0;
+}
+.cmd-suggest ul {
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+  max-height: 280px;
+  overflow-y: auto;
+}
+.cmd-suggest li {
+  display: grid;
+  grid-template-columns: 24px auto 1fr;
+  gap: 10px;
+  align-items: baseline;
+  padding: 7px 12px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  cursor: default;
+}
+.cmd-suggest li.sel { background: var(--bg-sunken); }
+.cmd-suggest-mark {
+  font-family: 'Geist Mono', monospace;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+.cmd-suggest-mark.agent-mark { color: var(--a-iris); }
+.cmd-suggest-name {
+  font-family: 'Geist Mono', monospace;
+  font-weight: 500;
+  color: var(--ink);
+}
+.cmd-suggest-meta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 8px;
+}
+.cmd-suggest-desc {
+  grid-column: 3 / -1;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.cmd-status {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  padding: 0 14px 12px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.cmd-chip {
+  background: var(--bg-soft);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+.cmd-chip.dim { opacity: 0.7; }
+.cmd-chip b { color: var(--ink-soft); font-weight: 500; }
+
+.cmd-error {
+  margin: 0 14px 14px;
+  padding: 9px 12px;
+  border-radius: 6px;
+  background: oklch(0.95 0.06 25);
+  color: oklch(0.4 0.15 25);
+  font-size: 13px;
+}
+.cmd-success {
+  margin: 0 14px 14px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: oklch(0.96 0.05 150);
+  border: 1px solid oklch(0.6 0.13 150);
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+.cmd-success .ok {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: oklch(0.5 0.13 150);
+  color: white;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.cmd-success a {
+  color: var(--ink);
+  font-weight: 500;
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 1px;
+}
+.cmd-success a:hover { border-bottom-color: var(--ink); }

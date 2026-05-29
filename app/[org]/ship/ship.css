@@ -1,0 +1,194 @@
+/* Ship a session like a Docker image — with a 3D build → seal → launch
+   animation. Isometric layer stack (Docker layers), turntable-spinning, that
+   packs on build, glows on seal, and rockets away on ship. */
+
+.ship-root { min-height: 100vh; background: var(--bg); font-family: 'Geist', -apple-system, system-ui, sans-serif; overflow-x: hidden; }
+
+.ship-bar { display: flex; align-items: center; gap: 14px; max-width: 760px; margin: 0 auto; padding: 22px 24px; }
+.ship-brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; }
+.ship-brand .logo { width: 18px; height: 18px; border-radius: 5px; background: var(--accent); }
+.ship-org { color: var(--muted); font-size: 13px; }
+.ship-back { margin-left: auto; color: var(--faint); font-size: 12.5px; }
+.ship-back:hover { color: var(--ink); }
+
+.ship-main { max-width: 760px; margin: 0 auto; padding: 28px 24px 120px; text-align: center; }
+.ship-eyebrow { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.ship-title { font-size: clamp(34px, 5.5vw, 52px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.03; margin: 0 0 12px; }
+.ship-sub { font-size: 17px; color: var(--muted); max-width: 540px; margin: 0 auto 8px; }
+
+/* ── 3D scene ───────────────────────────────────────────────────────────── */
+.ship-scene {
+  position: relative; height: 380px; margin: 8px auto 6px;
+  perspective: 1100px; perspective-origin: 50% 42%;
+  display: flex; align-items: center; justify-content: center;
+}
+.ship-space {
+  position: relative; width: 260px; height: 190px;
+  transform-style: preserve-3d;
+}
+.phase-idle .ship-space, .phase-building .ship-space, .phase-sealing .ship-space {
+  animation: ship-float 6s ease-in-out infinite;
+}
+@keyframes ship-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+.ship-stack {
+  position: absolute; inset: 0; transform-style: preserve-3d;
+  transform: rotateX(60deg) rotateZ(0deg);
+  animation: ship-turntable 18s linear infinite;
+}
+@keyframes ship-turntable { to { transform: rotateX(60deg) rotateZ(360deg); } }
+.phase-sealing .ship-stack { filter: drop-shadow(0 0 24px var(--accent)); }
+.phase-launching .ship-stack { animation-play-state: paused; }
+
+/* the platform the layers sit on */
+.ship-base {
+  position: absolute; left: 50%; top: 50%; width: 250px; height: 165px;
+  margin: -82px 0 0 -125px; border-radius: 14px;
+  transform: translateZ(-6px);
+  background: repeating-linear-gradient(45deg, rgba(255,144,232,0.05) 0 10px, rgba(255,144,232,0.02) 10px 20px);
+  border: 1px solid rgba(255,144,232,0.25);
+}
+
+/* each Docker-style layer */
+.plate {
+  position: absolute; left: 50%; top: 50%; width: 230px; height: 150px;
+  margin: -75px 0 0 -115px; border-radius: 11px;
+  transform: translateZ(calc(var(--i) * 22px));
+  background: rgba(255,144,232,0.07);
+  border: 1.5px solid var(--accent);
+  box-shadow: inset 0 0 26px rgba(255,144,232,0.10), 0 1px 0 rgba(255,255,255,0.04);
+  backface-visibility: hidden;
+}
+.plate-label {
+  position: absolute; left: 12px; top: 9px;
+  font-family: 'Geist Mono', monospace; font-size: 10.5px; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--accent);
+  transform: rotateZ(0deg);
+}
+/* per-kind tints */
+.plate.kind-finding  { border-color: var(--accent-2); background: rgba(144,168,237,0.07); box-shadow: inset 0 0 26px rgba(144,168,237,0.10); }
+.plate.kind-finding .plate-label { color: var(--accent-2); }
+.plate.kind-rule     { border-color: #ffd84d; background: rgba(255,201,0,0.06); box-shadow: inset 0 0 26px rgba(255,201,0,0.10); }
+.plate.kind-rule .plate-label { color: #ffd84d; }
+.plate.kind-summary, .plate.kind-episode, .plate.kind-handoff, .plate.kind-fact {
+  border-color: #6f8; background: rgba(110,255,180,0.05); box-shadow: inset 0 0 26px rgba(110,255,180,0.08);
+}
+.plate.kind-summary .plate-label, .plate.kind-episode .plate-label,
+.plate.kind-handoff .plate-label, .plate.kind-fact .plate-label { color: #7df0b0; }
+
+/* build: plates drop in and stack, staggered */
+.phase-building .plate {
+  animation: plate-in 0.62s cubic-bezier(0.2, 0.85, 0.25, 1) backwards;
+  animation-delay: calc(var(--i) * 0.16s);
+}
+@keyframes plate-in {
+  from { transform: translateZ(calc(var(--i) * 22px + 320px)); opacity: 0; }
+  60%  { opacity: 1; }
+  to   { transform: translateZ(calc(var(--i) * 22px)); opacity: 1; }
+}
+
+/* seal band that wraps the image */
+.ship-seal {
+  position: absolute; left: 50%; top: 50%; width: 244px; height: 162px;
+  margin: -81px 0 0 -122px; border-radius: 13px;
+  transform: translateZ(calc(var(--plates, 4) * 22px / 2));
+  border: 2px solid var(--accent); opacity: 0; pointer-events: none;
+}
+.phase-sealing .ship-seal { animation: seal-wrap 0.7s ease forwards; }
+@keyframes seal-wrap {
+  0% { opacity: 0; transform: translateZ(150px) scale(1.3); }
+  60% { opacity: 1; }
+  100% { opacity: 0.9; transform: translateZ(48px) scale(1); }
+}
+
+/* ground shadow */
+.ship-shadow {
+  position: absolute; left: 50%; bottom: 18px; width: 220px; height: 36px;
+  margin-left: -110px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,144,232,0.22), transparent 70%);
+  filter: blur(6px);
+}
+.phase-launching .ship-shadow { animation: shadow-out 1.2s forwards; }
+@keyframes shadow-out { to { transform: scale(0.3); opacity: 0; } }
+
+/* launch: the whole image rockets up into the distance */
+.phase-launching .ship-space { animation: ship-launch 1.25s cubic-bezier(0.5, 0, 0.85, 0.4) forwards; }
+@keyframes ship-launch {
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  18%  { transform: translateY(28px) scale(1.04); }
+  100% { transform: translateY(-560px) scale(0.12); opacity: 0; filter: blur(5px); }
+}
+
+/* speed lines during launch */
+.speedlines { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+.phase-launching .speedlines { opacity: 1; }
+.speedlines span {
+  position: absolute; left: calc(8% + (var(--n) * 6.2%)); top: -10%;
+  width: 2px; height: 70px; border-radius: 2px;
+  background: linear-gradient(var(--accent), transparent);
+  opacity: 0;
+}
+.phase-launching .speedlines span {
+  animation: streak 0.7s linear infinite;
+  animation-delay: calc(var(--n) * 0.04s);
+}
+@keyframes streak { 0% { transform: translateY(-40px); opacity: 0; } 30% { opacity: 0.8; } 100% { transform: translateY(440px); opacity: 0; } }
+
+/* status line under the scene */
+.ship-status {
+  display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+  font-family: 'Geist Mono', monospace; font-size: 12.5px; color: var(--muted);
+}
+.ship-status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: ship-blink 1.4s infinite; }
+.phase-idle .ship-status-dot { animation: none; background: var(--faint); }
+@keyframes ship-blink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+/* ── controls ───────────────────────────────────────────────────────────── */
+.ship-controls { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 18px; }
+.ship-pick { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+.ship-pick select {
+  background: var(--bg-soft); border: 1px solid var(--rule-strong); color: var(--ink);
+  border-radius: 8px; padding: 8px 12px; font-family: 'Geist Mono', monospace; font-size: 12.5px;
+}
+.ship-pick select:disabled { opacity: 0.5; }
+.ship-go {
+  height: 52px; padding: 0 30px; font-size: 16px; font-weight: 600; font-family: inherit;
+  background: var(--accent); color: var(--accent-ink); border: none; border-radius: 10px; cursor: pointer;
+  box-shadow: 0 0 0 0 rgba(255,144,232,0.5); transition: transform 120ms, box-shadow 200ms;
+}
+.ship-go:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,144,232,0.3); }
+.ship-go:active:not(:disabled) { transform: translateY(0); }
+.ship-go:disabled { opacity: 0.6; cursor: default; }
+.ship-error { color: #ff9b9b; font-size: 14px; }
+
+/* ── shipped image card ─────────────────────────────────────────────────── */
+.ship-result { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 10px; animation: card-rise 0.5s cubic-bezier(0.2,0.8,0.2,1); }
+@keyframes card-rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.ship-img-card {
+  width: 100%; max-width: 460px; text-align: left;
+  background: var(--bg-soft); border: 1.5px solid var(--accent);
+  border-radius: 14px; padding: 20px 22px;
+  box-shadow: 6px 6px 0 rgba(255,144,232,0.22);
+}
+.ship-img-top { display: flex; align-items: baseline; gap: 1px; font-size: 19px; font-weight: 600; }
+.ship-img-ref { color: var(--ink); }
+.ship-img-tag { color: var(--accent); }
+.ship-img-digest { font-size: 12px; color: var(--muted); margin-top: 6px; word-break: break-all; }
+.ship-img-layers { display: flex; flex-wrap: wrap; gap: 7px; margin: 14px 0 12px; }
+.ship-layer-chip {
+  font-family: 'Geist Mono', monospace; font-size: 11px; padding: 3px 9px; border-radius: 6px;
+  background: var(--bg-sunken); color: var(--ink-soft); border: 1px solid var(--rule-strong);
+}
+.ship-layer-chip.kind-decision { color: var(--accent); border-color: rgba(255,144,232,0.4); }
+.ship-layer-chip.kind-finding { color: var(--accent-2); border-color: rgba(144,168,237,0.4); }
+.ship-layer-chip.kind-rule { color: #ffd84d; border-color: rgba(255,201,0,0.4); }
+.ship-img-meta { font-size: 11.5px; color: var(--faint); margin-bottom: 14px; }
+.ship-pull {
+  width: 100%; text-align: left; font-family: 'Geist Mono', monospace; font-size: 12.5px;
+  background: var(--bg); color: var(--accent); border: 1px dashed var(--rule-strong);
+  border-radius: 8px; padding: 11px 13px; cursor: pointer; transition: border-color 120ms;
+  word-break: break-all;
+}
+.ship-pull:hover { border-color: var(--accent); }
+.ship-again { background: none; border: none; color: var(--muted); font-size: 13.5px; font-family: inherit; cursor: pointer; }
+.ship-again:hover { color: var(--ink); }

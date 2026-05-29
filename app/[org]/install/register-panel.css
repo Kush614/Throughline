@@ -1,0 +1,210 @@
+/* Register-agent panel above the docs on /[org]/install — scoped via .reg-panel-wrap */
+
+.reg-panel-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 28px 28px 0;
+}
+
+.reg-panel-wrap .onboard-banner {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 18px;
+  padding: 14px 18px;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: 12px;
+}
+.reg-panel-wrap .onboard-banner .num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--bg); color: var(--ink);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12px; font-weight: 600; flex-shrink: 0;
+}
+.reg-panel-wrap .onboard-banner .txt { font-size: 14px; flex: 1; }
+.reg-panel-wrap .onboard-banner .txt b { font-weight: 500; }
+.reg-panel-wrap .onboard-banner .skip {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  padding-bottom: 1px;
+}
+.reg-panel-wrap .onboard-banner .skip:hover { color: var(--bg); border-bottom-color: var(--bg); }
+
+.reg-panel {
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 28px 28px 24px;
+}
+.reg-head { margin-bottom: 18px; }
+.reg-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+.reg-panel h2 {
+  font-size: clamp(28px, 3.5vw, 38px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 12px;
+}
+.reg-panel h2 .muted { color: var(--muted); font-weight: 400; }
+.reg-lede { font-size: 14.5px; color: var(--ink-soft); margin: 0; max-width: 680px; }
+.reg-lede .link {
+  color: var(--ink); font-weight: 500;
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 1px;
+}
+
+.reg-client-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+@media (max-width: 980px) { .reg-client-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .reg-client-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.reg-client {
+  appearance: none; border: 1px solid var(--rule);
+  background: var(--bg);
+  padding: 16px 14px 14px;
+  border-radius: 10px;
+  text-align: left;
+  display: flex; flex-direction: column; gap: 10px;
+  cursor: default;
+  position: relative;
+  font: inherit; font-family: inherit;
+  min-height: 110px;
+  transition: all 140ms;
+}
+.reg-client:hover { border-color: var(--rule-strong); background: var(--bg-soft); }
+.reg-client[data-on="1"] {
+  border-color: var(--ink);
+  box-shadow: 0 0 0 1px var(--ink);
+}
+.reg-client[data-on="1"]::after {
+  content: ""; position: absolute;
+  top: 10px; right: 10px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+.reg-client[data-on="1"]::before {
+  content: ""; position: absolute;
+  top: 15px; right: 13px;
+  width: 6px; height: 4px;
+  border-left: 1.4px solid var(--bg);
+  border-bottom: 1.4px solid var(--bg);
+  transform: rotate(-45deg);
+  z-index: 1;
+}
+.reg-client .glyph {
+  width: 30px; height: 30px;
+  border-radius: 7px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--bg-sunken);
+  font-family: 'Geist Mono', monospace;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--ink);
+}
+.reg-client .name { font-size: 13.5px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+.reg-client .meta {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.reg-client .badge {
+  position: absolute; bottom: 10px; right: 12px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+.reg-cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.reg-primary {
+  appearance: none; border: 0;
+  background: var(--ink); color: var(--bg);
+  font: inherit; font-family: inherit;
+  font-weight: 500; font-size: 14.5px;
+  padding: 0 18px;
+  height: 46px;
+  border-radius: 8px;
+  cursor: default;
+  transition: background 160ms;
+}
+.reg-primary:hover { background: #1f1f1c; }
+.reg-cta-hint { font-size: 12.5px; color: var(--muted); }
+
+.reg-issued {
+  border: 1px solid oklch(0.55 0.12 150);
+  background: oklch(0.97 0.04 150);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.reg-issued-eyebrow {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10.5px;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: oklch(0.4 0.13 150);
+  margin-bottom: 8px;
+}
+.reg-issued-name { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+.reg-issued-name b { font-weight: 600; font-size: 16px; color: var(--ink); }
+.reg-issued-from { font-family: 'Geist Mono', monospace; font-size: 12px; color: var(--muted); }
+.reg-key-box {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--ink); color: var(--bg);
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin: 8px 0 10px;
+}
+.reg-key-box code {
+  flex: 1;
+  font-family: 'Geist Mono', monospace;
+  font-size: 13px;
+  word-break: break-all;
+  user-select: all;
+}
+.reg-copy {
+  appearance: none; border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.85);
+  font: inherit; font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: default;
+  white-space: nowrap;
+}
+.reg-copy:hover { background: rgba(255,255,255,0.12); color: var(--bg); }
+.reg-copy.ok { color: oklch(0.85 0.13 150); border-color: oklch(0.5 0.12 150); }
+.reg-issued-hint { font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
+.reg-issued-hint code {
+  font-family: 'Geist Mono', monospace;
+  background: var(--bg);
+  padding: 1px 5px; border-radius: 3px;
+  border: 1px solid var(--rule);
+}
+.reg-issued-actions {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-top: 14px;
+}
+.reg-secondary {
+  appearance: none;
+  background: var(--bg); border: 1px solid var(--rule-strong);
+  color: var(--ink-soft);
+  font: inherit; font-family: inherit; font-size: 13px; font-weight: 500;
+  padding: 7px 12px;
+  border-radius: 7px;
+  cursor: default;
+  text-decoration: none;
+}
+.reg-secondary:hover { background: var(--bg-soft); color: var(--ink); }

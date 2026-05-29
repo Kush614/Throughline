@@ -1,0 +1,79 @@
+/* Gumroad-flavored dark theme — scoped to `.gum` so it never touches the
+   developer brain workstation. Near-black surfaces, signature hot-pink accent,
+   thin high-contrast borders, flat and minimal. */
+
+.gum {
+  --bg:          #0e0e0e;
+  --bg-soft:     #181818;
+  --bg-sunken:   #212121;
+  --ink:         #f6f5f3;
+  --ink-soft:    #cfcdc8;
+  --muted:       #928f8a;
+  --faint:       #6a6864;
+  --whisper:     #2c2c2c;
+  --rule:        #242424;
+  --rule-strong: #3a3a3a;
+  --accent:      #ff90e8;   /* Gumroad pink */
+  --accent-ink:  #190f18;
+  --accent-2:    #90a8ed;
+
+  background: var(--bg);
+  color: var(--ink);
+}
+.gum ::selection { background: var(--accent); color: var(--accent-ink); }
+
+/* ── org home (org-home.css) ── */
+.gum .btn.primary { background: var(--accent); color: var(--accent-ink); border: none; }
+.gum .btn.primary:hover { background: #ff7fe3; }
+.gum .btn.ghost { background: transparent; border: 1px solid var(--rule-strong); color: var(--ink-soft); }
+.gum .btn.ghost:hover { background: var(--bg-soft); color: var(--ink); }
+.gum .brand .logo { background: var(--accent); }
+.gum .brand .logo::before, .gum .brand .logo::after { background: var(--bg); }
+
+/* ── ask page (ask.css) ── */
+.gum .ask-input { background: var(--bg-soft); border-color: var(--rule-strong); color: var(--ink); }
+.gum .ask-input::placeholder { color: var(--faint); }
+.gum .ask-input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(255,144,232,0.12); }
+.gum .ask-submit { background: var(--accent); color: var(--accent-ink); }
+.gum .ask-submit:hover:not(:disabled) { background: #ff7fe3; }
+.gum .ask-chip { background: var(--bg-soft); border-color: var(--rule); color: var(--ink-soft); }
+.gum .ask-chip:hover { background: var(--bg-sunken); border-color: var(--accent); color: var(--ink); }
+/* Gumroad signature: bold border + hard offset shadow on the answer card —
+   the one element we want to pop when memory answers a question. */
+.gum .ask-answer { background: var(--bg-soft); border: 1.5px solid var(--accent); box-shadow: 6px 6px 0 rgba(255,144,232,0.22); }
+.gum .ask-q-label { background: var(--bg-sunken); color: var(--ink-soft); }
+.gum .ask-a-label { color: var(--accent); }
+.gum .ask-error { background: rgba(255,90,90,0.10); border-color: rgba(255,90,90,0.32); color: #ff9b9b; }
+.gum .ask-empty, .gum .ask-muted-card { background: var(--bg-soft); border-color: var(--rule-strong); }
+.gum .ask-muted-card code, .gum .ask-banner code { background: var(--bg-sunken); color: var(--accent); }
+.gum .ask-banner { background: var(--bg-soft); border-color: var(--rule-strong); color: var(--ink-soft); }
+.gum .ask-src { border-left-color: var(--rule-strong); }
+.gum .ask-src-super { background: rgba(255,144,232,0.14); color: var(--accent); }
+.gum .recap-card { background: var(--bg-soft); border-color: var(--rule-strong); }
+.gum .tl-dot { border-color: var(--bg); background: var(--ink); }
+.gum .tl-row.active .tl-dot { background: var(--accent); }
+
+/* ── kind badges (shared) ── */
+.gum .kind-badge { background: var(--bg-sunken); color: var(--ink-soft); }
+.gum .kind-decision { background: rgba(255,144,232,0.16); color: var(--accent); }
+.gum .kind-finding  { background: rgba(144,168,237,0.18); color: var(--accent-2); }
+.gum .kind-rule     { background: rgba(255,201,0,0.14);  color: #ffd84d; }
+.gum .kind-fact, .gum .kind-handoff, .gum .kind-resume,
+.gum .kind-build, .gum .kind-summary, .gum .kind-episode {
+  background: var(--bg-sunken); color: var(--ink-soft);
+}
+
+/* ── live ask dock (live-ask.css) — `gum` is applied to the dock root ── */
+.gum.lad-dock { background: var(--bg-soft); border-color: var(--rule-strong); box-shadow: 0 16px 50px rgba(0,0,0,0.55); }
+.gum.lad-dock .lad-head { background: var(--bg); border-bottom-color: var(--rule); }
+.gum .lad-input { background: var(--bg-sunken); border-color: var(--rule-strong); color: var(--ink); }
+.gum .lad-input:focus { border-color: var(--accent); }
+.gum .lad-ask { background: var(--accent); color: var(--accent-ink); }
+.gum .lad-dot { background: var(--accent); box-shadow: 0 0 0 0 rgba(255,144,232,0.5); }
+.gum .lad-badge { background: var(--bg-sunken); color: var(--ink-soft); }
+.gum .lad-capture { background: rgba(255,144,232,0.10); border-color: rgba(255,144,232,0.32); }
+.gum .lad-capture-top { color: var(--accent); }
+.gum .lad-src { border-top-color: var(--rule); }
+.gum.lad-fab { background: var(--accent); color: var(--accent-ink); }
+.gum.lad-fab .lad-dot { background: var(--accent-ink); }
+.gum .lad-full, .gum.lad-dock .lad-full { background: var(--bg); border-top-color: var(--rule); }

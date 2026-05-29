@@ -1,0 +1,24 @@
+{
+  "name": "neverzero-cli",
+  "version": "0.1.0",
+  "description": "nz — local-first control plane for AI agent coordination, work ledger, memory, and resume packets.",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "nz": "./bin/nz"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "dev": "node --import tsx/esm src/index.ts",
+    "test": "node --import tsx/esm --test tests/e2e.test.ts",
+    "nz": "node --import tsx/esm src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

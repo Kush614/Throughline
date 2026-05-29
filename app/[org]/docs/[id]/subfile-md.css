@@ -1,0 +1,92 @@
+/* Markdown body styling for subfile center inside the workstation shell.
+   Scoped via .workstation-root .md-body so we don't clash with anything else. */
+
+.workstation-root .md-body { font-size: 15px; line-height: 1.65; color: var(--ink-soft); }
+.workstation-root .md-body h2 { font-size: 20px; font-weight: 600; margin: 28px 0 12px; color: var(--ink); letter-spacing: -0.015em; }
+.workstation-root .md-body h3 { font-size: 17px; font-weight: 600; margin: 22px 0 10px; color: var(--ink); letter-spacing: -0.01em; }
+.workstation-root .md-body h4 { font-size: 15px; font-weight: 600; margin: 18px 0 8px; color: var(--ink); }
+.workstation-root .md-body p { margin: 0 0 14px; }
+.workstation-root .md-body strong { color: var(--ink); font-weight: 600; }
+.workstation-root .md-body code {
+  font-family: 'Geist Mono', monospace;
+  font-size: 12.5px;
+  background: var(--bg-sunken);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--ink-soft);
+}
+.workstation-root .md-body a {
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule-strong);
+  padding-bottom: 1px;
+}
+.workstation-root .md-body a:hover { border-bottom-color: var(--ink); }
+.workstation-root .md-body hr.rule { border: 0; border-top: 1px solid var(--rule); margin: 24px 0; }
+
+.workstation-root .md-body .md-quote {
+  margin: 0 0 14px;
+  padding: 8px 14px;
+  background: var(--bg-soft);
+  border-left: 2px solid var(--rule-strong);
+  border-radius: 0 6px 6px 0;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+.workstation-root .md-body .md-quote div { margin: 0; }
+
+.workstation-root .md-body .md-list { padding-left: 22px; margin: 6px 0 16px; }
+.workstation-root .md-body .md-list li { margin-bottom: 6px; }
+.workstation-root .md-body .md-list li .md-cb {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border-radius: 3px;
+  border: 1px solid var(--rule-strong);
+  background: var(--bg);
+  font-size: 9px;
+  line-height: 1;
+  text-align: center;
+  margin-right: 6px;
+  vertical-align: 0;
+  color: var(--bg);
+}
+.workstation-root .md-body .md-list li .md-cb.on { background: var(--ink); border-color: var(--ink); padding-top: 2px; }
+
+.workstation-root .md-body .md-pre {
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  background: var(--ink); color: var(--bg);
+  border-radius: 8px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.55;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.workstation-root .md-body .md-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 0 16px;
+  font-size: 13px;
+}
+.workstation-root .md-body .md-table th,
+.workstation-root .md-body .md-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+.workstation-root .md-body .md-table th {
+  background: var(--bg-soft);
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 600;
+}
+.workstation-root .md-body .md-table tbody tr:last-child td { border-bottom: 0; }
