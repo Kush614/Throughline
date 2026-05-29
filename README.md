@@ -199,3 +199,34 @@ scripts/
 ## Credits
 
 - **[XTrace](https://docs.mem.xtrace.ai)** — the hosted memory API this is built on.
+
+---
+
+## Companion build: LoopDev — deploy-aware code intelligence
+
+**LoopDev** is a sibling build that applies the same XTrace memory spine to a different surface:
+generating code that already knows what broke in production before. A developer pastes a ticket;
+LoopDev generates code informed by the repo's deployment history and known anti-patterns,
+auto-generates tests prioritized by past incidents, produces a deployment risk card from real
+rollback rates, and — when a deploy causes an incident — records it, derives a new anti-pattern, and
+avoids it on the next generation. Built for the JetBrains × OpenAI Codex Hackathon (Write · Test · Deploy).
+
+### How LoopDev uses XTrace (alongside Supabase)
+
+LoopDev runs two complementary memory systems. **Supabase is the system of record; XTrace is the
+agent's semantic memory.**
+
+| | Supabase | XTrace |
+|---|---|---|
+| Role | System of record (relational) | Semantic memory (vector search) |
+| Holds | Curated incidents, anti-patterns, deploys + every generation | Past generations (ticket + code + risk) and incidents, auto-extracted to facts/episodes |
+| Queried by | Exact filters (`repo_id = X`) | Natural language, ranked by relevance to the current ticket |
+| At generate-time | Returns all anti-patterns/incidents for the repo + computes the risk card | Returns only memory relevant to this ticket as a ready-to-inject context block |
+| Writes | Generation rows; incidents + derived anti-patterns | `ingest()` of each generation and incident, fired in Next.js `after()` so it never blocks the response |
+
+Concept mapping (same XTrace axes as Throughline): `user_id` → repo, `conv_id` → generation,
+`app_id` → `loopdev`. At generation time LoopDev calls `recallMemory(repo, ticket)` to vector-search
+similar past work and injects the assembled `context_prompt` into the deploy-aware system prompt;
+each finished generation and recorded incident is ingested back into XTrace via `after()`. The
+integration degrades gracefully — if XTrace keys are unset or a call fails, recall returns empty and
+ingestion is a no-op, so generation still works on Supabase alone (`lib/xtrace.ts`).
